@@ -85,7 +85,6 @@ public class GeneralAppLog implements Serializable {
         this.lre_id = lre_id;
     }
 
-
     @Override
     public String toString() {
         return "GeneralAppLog{" +

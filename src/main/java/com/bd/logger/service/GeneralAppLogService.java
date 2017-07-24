@@ -1,10 +1,13 @@
 package com.bd.logger.service;
 
 import com.bd.logger.domain.GeneralAppLog;
+import com.bd.logger.repository.GeneralAppLogRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.dongliu.gson.GsonJava8TypeAdapterFactory;
 import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
 
 /**
  * Created by max on 7/23/17.
@@ -12,10 +15,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class GeneralAppLogService {
 
+    private GeneralAppLogRepository generalAppLogRepository;
+
+    public GeneralAppLogService() {
+    }
+
+    @Inject
+    public GeneralAppLogService(GeneralAppLogRepository generalAppLogRepository) {
+        this.generalAppLogRepository = generalAppLogRepository;
+    }
+
+    public void save(String jsonString) {
+        GeneralAppLog generalAppLog = parse(jsonString);
+        generalAppLogRepository.save(generalAppLog);
+    }
+
     public GeneralAppLog parse(String stringJson) {
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapterFactory()).create();
         return gson.fromJson(stringJson, GeneralAppLog.class);
     }
-
-
 }

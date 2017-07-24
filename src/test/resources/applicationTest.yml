@@ -1,0 +1,49 @@
+security:
+  key: 7NsiVQhUpw=PskvpmPkHWmfFdFYCLkBqk4A8jktxTRPzCH,w7qtwdHqzkqu@AWt2
+  # 1800000 = 30 minutes
+  expiration: 1800000
+
+spring:
+  application:
+    name: mc-logger
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:mc2;DB_CLOSE_DELAY=-1
+    username: mcadmin
+    password: mcadmin
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    database: POSTGRESQL
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: mcadmin
+    password: mcadmin
+    queuename: LogQueue
+
+liquibase:
+  change-log: classpath:db/changelog/master.xml
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${DISCOVERY_URL:http://10.0.0.26:8761}/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+
+ribbon:
+  eureka:
+    enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+server:
+  port: ${PORT:3320}

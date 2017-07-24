@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
@@ -27,10 +28,11 @@ public class EventListenerService {
 
     @Async
     @RabbitListener(queues = queueName)
-    public void onEvent(String e) throws NullOrEmptyException {
-        log.trace("Received message: {} from queue: {}", e, queueName);
+    public void onEvent(String jsonString) throws NullOrEmptyException {
+        log.trace("Received message: {} from queue: {}", jsonString, queueName);
         ApplicationContext ctx = StaticApplicationContext.getContext();
         GeneralAppLogService generalAppLogService = ctx.getBean(GeneralAppLogService.class);
-//        generalApplogService.process(e);
+        generalAppLogService.save(jsonString);
     }
+
 }
