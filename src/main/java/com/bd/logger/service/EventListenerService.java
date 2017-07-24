@@ -34,5 +34,4 @@ public class EventListenerService {
         GeneralAppLogService generalAppLogService = ctx.getBean(GeneralAppLogService.class);
         generalAppLogService.save(jsonString);
     }
-
 }

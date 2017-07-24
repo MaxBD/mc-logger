@@ -20,8 +20,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class EventListenerServiceTest {
 
-    @Value("${spring.rabbitmq.queuename}")
-    private String queueName;
+    private String queueName = "LogQueue";
 
     @Before
     public void setUp() throws Exception {
