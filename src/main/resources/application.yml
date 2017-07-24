@@ -16,6 +16,13 @@ spring:
     show-sql: true
     database: POSTGRESQL
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: mcadmin
+    password: mcadmin
+    queuename: LogQueue
+
 liquibase:
   change-log: classpath:db/changelog/master.xml
 
@@ -31,10 +38,12 @@ eureka:
 ribbon:
   eureka:
     enabled: true
+
 logging:
   level:
     org:
       springframework:
         security: DEBUG
+
 server:
   port: ${PORT:3320}
