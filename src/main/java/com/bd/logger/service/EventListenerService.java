@@ -28,10 +28,10 @@ public class EventListenerService {
 
     @Async
     @RabbitListener(queues = queueName)
-    public void onEvent(String jsonString) throws NullOrEmptyException {
-        log.trace("Received message: {} from queue: {}", jsonString, queueName);
+    public void onEvent(String logString) throws NullOrEmptyException {
+        log.debug("Received message: {} from queue: {}", logString, queueName);
         ApplicationContext ctx = StaticApplicationContext.getContext();
         GeneralAppLogService generalAppLogService = ctx.getBean(GeneralAppLogService.class);
-        generalAppLogService.save(jsonString);
+        generalAppLogService.save(logString);
     }
 }

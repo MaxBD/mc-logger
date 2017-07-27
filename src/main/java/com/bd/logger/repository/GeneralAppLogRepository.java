@@ -13,6 +13,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface GeneralAppLogRepository extends JpaRepository<GeneralAppLog,Long> {
-
 }
 
